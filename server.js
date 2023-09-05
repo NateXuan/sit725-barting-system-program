@@ -7,6 +7,7 @@ const userRoutes = require("./routes/user");
 const feedbackRoutes = require("./routes/feedback");
 const itemRoutes = require("./routes/item");
 const viewRoutes = require("./routes/view");
+const transactionRoutes = require("./routes/transaction");
 const app = express();
 
 connectDB();
@@ -36,7 +37,7 @@ app.use("/products", productRoutes);
 app.use("/users", userRoutes);
 app.use("/feedbacks", feedbackRoutes);
 app.use("/item", itemRoutes);
-
+app.use("transaction", transactionRoutes);
 // Registering View routes
 app.use("/", viewRoutes);
 
