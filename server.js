@@ -37,7 +37,8 @@ app.use("/products", productRoutes);
 app.use("/users", userRoutes);
 app.use("/feedbacks", feedbackRoutes);
 app.use("/item", itemRoutes);
-app.use("transaction", transactionRoutes);
+app.use("/transaction", transactionRoutes);
+
 // Registering View routes
 app.use("/", viewRoutes);
 
