@@ -41,6 +41,7 @@ exports.registerUser = async (req, res) => {
             email,
             name,
             password: hashedPassword,
+            role: 'user',
         });
 
         await user.save();
@@ -120,8 +121,9 @@ exports.deleteProduct = async (req, res) => {
     }
 };
 
-
-
-
-
-
+exports.getAdminPage = async (req, res) => {
+    // Fetch all the user feedbacks and listings
+    const feedbacks = await Feedback.find({});
+    const products = await Product.find({}).populate('owner');
+    res.render('admin', { feedbacks, products });
+};

@@ -7,6 +7,7 @@ const connectDB = require('./dbConnection');
 const userController = require('./controller/controller');
 const feedbackRoutes = require('./routes/feedback');
 const Product = require('./models/product');
+const User = require('./models/User');
 
 connectDB();
 
@@ -94,15 +95,28 @@ app.get('/profile', async (req, res) => {
     if (!req.session.user) {
         return res.redirect('/login');
     }
-    let products = await Product.find({ owner: req.session.user._id });
+    
+    let products = await Product.find();
     let message = req.session.message || null;
     req.session.message = null;
-    res.render('profile', { 
-        user: req.session.user, 
-        products: products,
-        message: message
-    });
+    
+    if(req.session.user.role === 'admin') {
+        const users = await User.find();
+        res.render('admin', { 
+            user: req.session.user,
+            users: users, 
+            products: products,
+            message: message
+        });
+    } else {
+        res.render('profile', { 
+            user: req.session.user, 
+            products: products,
+            message: message
+        });
+    }
 });
+
 
 app.get('/search', async (req, res) => {
     const term = req.query.term;
