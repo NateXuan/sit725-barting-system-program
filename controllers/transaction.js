@@ -1,6 +1,7 @@
 const ObjectId = require("mongodb").ObjectId;
 const productModel = require("../models/product");
 const transactionModel = require("../models/transaction");
+const transactionDetailModel = require("../models/transactionDetail");
 
 exports.getTransaction = (req, res) => {
     const { _id } = req.session.user;
@@ -35,6 +36,15 @@ exports.insertTransaction = async (req, res) => {
                 message: "Transaction created successfully",
                 data: transaction,
             });
+            new transactionDetailModel({
+                transactionId: transaction._id,
+                startDate: Date.now(),
+                endDate: null,
+                rating1: null,
+                rating2: null,
+                review1: "",
+                review2: "",
+            }).save();
         })
         .catch((err) => {
             res.status(400).send({ message: err });
