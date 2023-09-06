@@ -4,6 +4,7 @@ const transactionDetailSchema = new mongoose.Schema({
     transactionId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Transaction",
+        required: true,
     },
 
     startDate: {

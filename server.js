@@ -8,6 +8,7 @@ const feedbackRoutes = require("./routes/feedback");
 const itemRoutes = require("./routes/item");
 const viewRoutes = require("./routes/view");
 const transactionRoutes = require("./routes/transaction");
+const transactionDetailRoutes = require("./routes/transactionDetail");
 const app = express();
 
 connectDB();
@@ -38,6 +39,7 @@ app.use("/users", userRoutes);
 app.use("/feedbacks", feedbackRoutes);
 app.use("/item", itemRoutes);
 app.use("/transaction", transactionRoutes);
+app.use("/transaction-detail", transactionDetailRoutes);
 
 // Registering View routes
 app.use("/", viewRoutes);

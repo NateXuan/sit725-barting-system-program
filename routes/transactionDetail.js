@@ -1,23 +1,11 @@
 const express = require("express");
-const transactionDetailController = require("../controller/transactionDetail");
+const transactionDetailController = require("../controllers/transactionDetail");
 
 const router = express.Router();
 
-router.get(
-    "/transaction-detail",
-    transactionDetailController.getTransactionDetail
-);
-router.post(
-    "/transaction-detail",
-    transactionDetailController.insertTransactionDetail
-);
-router.put(
-    "/transaction-detail/:id",
-    transactionDetailController.updateTransactionDetail
-);
-router.delete(
-    "/transaction-detail/:id",
-    transactionDetailController.deleteTransactionDetail
-);
+router.get("/", transactionDetailController.getTransactionDetail);
+router.post("/", transactionDetailController.insertTransactionDetail);
+router.put("/:id", transactionDetailController.updateTransactionDetail);
+router.delete("/:id", transactionDetailController.deleteTransactionDetail);
 
 module.exports = router;
