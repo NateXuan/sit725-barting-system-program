@@ -13,6 +13,9 @@ const messageSchema = new mongoose.Schema({
     content: {
         type: String,
     },
+    url: {
+        type: String,
+    },
     parentId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "message",
