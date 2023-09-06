@@ -25,7 +25,7 @@ const transactionDetailSchema = new mongoose.Schema({
 });
 
 const TransactionDetail = mongoose.model(
-    "TransactionDetail",
+    "transaction_detail",
     transactionDetailSchema
 );
 
