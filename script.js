@@ -65,7 +65,7 @@ $(document).ready(function () {
 function onOpeningChatbox() {
     // Chatbox
     const chatbox = $(".transaction-chatbox");
-    chatbox.append(`
+    chatbox.html(`
     <div class="d-flex justify-content-center">
     <div class="spinner-border" role="status">
     <span class="sr-only"></span>
@@ -83,7 +83,7 @@ function onOpeningChatbox() {
 
 function onClosingChatbox() {
     // Chatbox
-    $(".transaction-chatbox").html = "";
+    $(".transaction-chatbox").html("");
 
     // Detail
     const messageBtn = $("#toggle-message-btn");
