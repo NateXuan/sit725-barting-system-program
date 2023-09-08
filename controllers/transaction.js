@@ -9,8 +9,12 @@ exports.getTransaction = (req, res) => {
         .find({
             $or: [{ user1: _id }, { user2: _id }],
         })
+        .populate("user1", "name email")
+        .populate("user2", "name email")
+        .populate("products1", "name imageUrl price")
+        .populate("products2", "name imageUrl price")
         .then((transaction) => {
-            res.status(200).send(transaction);
+            res.render("transaction", { transaction });
         })
         .catch((err) => {
             res.status(400).send({ message: err });
