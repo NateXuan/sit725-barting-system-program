@@ -50,10 +50,12 @@ $(document).ready(function () {
 $(document).ready(function () {
     const chatbox = $(".transaction-chatbox");
     const messageBtn = $("#toggle-message-btn");
+    const progressBar = $(".transaction-details-progress");
     messageBtn.on("click", function (event) {
         event.preventDefault();
         const isOpening = chatbox.hasClass("hidden");
         chatbox.toggleClass("hidden"); // toggle chatbox state
+        progressBar.toggleClass("hidden");
         if (isOpening) {
             onOpeningChatbox();
         } else {
@@ -72,10 +74,12 @@ function onOpeningChatbox() {
     </div>
     </div>
     `);
-    console.log(chatbox.html);
     // Detail
     const messageBtn = $("#toggle-message-btn");
-    messageBtn.text("View Details");
+    messageBtn.html(`
+        <i class="bi bi-chevron-double-left"></i>
+        View Details
+    `);
     $(".transaction-details-items .col").each(function () {
         $(this).addClass("col-12");
     });
@@ -90,7 +94,10 @@ function onClosingChatbox() {
 
     // Detail
     const messageBtn = $("#toggle-message-btn");
-    messageBtn.text("Open Chat");
+    messageBtn.html(`
+        <i class="bi bi-chevron-double-right"></i>
+        View Chat
+    `);
     $(".transaction-details-items .col").each(function () {
         $(this).removeClass("col-12");
     });
