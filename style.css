@@ -150,7 +150,6 @@ a:hover {
 }
 
 .transaction-chatbox {
-    background-color: red;
     transition: width 100ms;
 
     &.hidden {
@@ -160,6 +159,5 @@ a:hover {
     }
 }
 
-.transaction-info {
-    background-color: blue;
+.transaction-details {
 }

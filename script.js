@@ -46,8 +46,33 @@ $(document).ready(function () {
     });
 });
 
+//TODO: transactionScript.js
 $(document).ready(function () {
-    $("#view-message-btn").on("click", function () {
-        $(".transaction-chatbox").toggleClass("hidden");
+    const chatbox = $(".transaction-chatbox");
+    const messageBtn = $("#toggle-message-btn");
+    messageBtn.on("click", function (event) {
+        event.preventDefault();
+        const isCurrentlyCollapsed = !chatbox.hasClass("hidden");
+        const messageBtnContent = isCurrentlyCollapsed
+            ? "Open Chat"
+            : "View Details";
+        messageBtn.text(messageBtnContent);
+        chatbox.toggleClass("hidden");
+        $(".transaction-details-items .col").each(function () {
+            $(this).toggleClass("col-12");
+        });
     });
 });
+
+// function renderCollapsedDetailsLayout() {
+//     $(".transaction-details-items .col").each(function () {
+//         $(this).toggleClass("col-12");
+//     });
+//     console.log($(".transaction-details-items .col"));
+// }
+
+// function renderFullDetailsLayout() {
+//     $(".transaction-details-items .col").each(function () {
+//         $(this).toggleClass("col-12");
+//     });
+// }
