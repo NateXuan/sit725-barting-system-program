@@ -21,6 +21,7 @@ exports.getTransaction = (req, res) => {
             const selectedTransaction = transactions.find(
                 (e) => (e._id = selectedId)
             );
+            req.session.selectedTransactionId = selectedId;
             res.render("transaction", {
                 transactions,
                 user,
