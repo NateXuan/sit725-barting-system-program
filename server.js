@@ -17,13 +17,13 @@ const io = require("socket.io")(http);
 connectDB();
 
 // Session Configuration
-app.use(
-    session({
-        secret: "your_secret_key",
-        resave: false,
-        saveUninitialized: true,
-    })
-);
+const sessionMiddleware = session({
+    secret: "your_secret_key",
+    resave: false,
+    saveUninitialized: true,
+});
+app.use(sessionMiddleware);
+io.engine.use(sessionMiddleware);
 
 // Body Parser Configuration
 app.use(bodyParser.urlencoded({ extended: true }));
