@@ -11,6 +11,8 @@ const transactionRoutes = require("./routes/transaction");
 const transactionDetailRoutes = require("./routes/transactionDetail");
 const messageRoutes = require("./routes/message");
 const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 
 connectDB();
 
@@ -47,6 +49,12 @@ app.use("/message", messageRoutes);
 app.use("/", viewRoutes);
 
 const PORT = 3000;
-app.listen(PORT, () => {
+http.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+});
+
+io.on("connection", (socket) => {
+    socket.on("open-transaction-message", async (transactionId) => {});
+    socket.on("message", async (message) => {});
+    socket.on("disconnect", async (message) => {});
 });
