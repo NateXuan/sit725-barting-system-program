@@ -58,17 +58,17 @@ io.on("connection", (socket) => {
     socket.on("start-message", () => {
         const room = socket.request.session.selectedTransactionId;
         socket.join(room);
+        console.log(room);
     });
     socket.on("message", async (data) => {
         const user = socket.request.session.user;
         const room = socket.request.session.selectedTransactionId;
-        const content = data.message;
-        if (user && room && content.length) {
+        if (user && room && data.length) {
             const newMessage = new Message({
                 transactionId: room,
                 userId: user._id,
                 messageType: "text",
-                content: content,
+                content: data,
                 parentId: null,
             });
             newMessage.save().then((message) => {

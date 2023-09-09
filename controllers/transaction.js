@@ -16,12 +16,11 @@ exports.getTransaction = (req, res) => {
         .populate("products2", "name imageUrl price")
         .then((transactions) => {
             transactions.sort(compareTransactionByStatus);
-            const selectedId =
-                req.params.selectedId || transactions[0]._id.toString() || null;
-            const selectedTransaction = transactions.find(
-                (e) => (e._id = selectedId)
-            );
+            const selectedId = req.query.transactionId ?? null;
             req.session.selectedTransactionId = selectedId;
+            const selectedTransaction = transactions.find(
+                (e) => e.id == selectedId
+            );
             res.render("transaction", {
                 transactions,
                 user,
