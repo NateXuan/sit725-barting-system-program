@@ -10,6 +10,7 @@ const viewRoutes = require("./routes/view");
 const transactionRoutes = require("./routes/transaction");
 const transactionDetailRoutes = require("./routes/transactionDetail");
 const messageRoutes = require("./routes/message");
+const Message = require("./models/message");
 const app = express();
 const http = require("http").createServer(app);
 const io = require("socket.io")(http);
@@ -54,7 +55,35 @@ http.listen(PORT, () => {
 });
 
 io.on("connection", (socket) => {
-    socket.on("open-transaction-message", async (transactionId) => {});
-    socket.on("message", async (message) => {});
-    socket.on("disconnect", async (message) => {});
+    // socket.on("open-transaction-message", () => {
+    //     // const room = socket.request.session.selectedTransactionId;
+    //     if (room) {
+    //         io.sockets
+    //             .in(room)
+    //             .emit(`connected to transaction message: ${room}`);
+    //     }
+    // });
+    socket.on("new-message", async (data) => {
+        const user = socket.request.session.user;
+        // const room = socket.request.session.selectedTransactionId;
+        const room = "64faa6809996590a2aa17ca2";
+        const content = data.message;
+        if (user && room && content.length) {
+            const newMessage = new Message({
+                transactionId: room,
+                userId: user._id,
+                type: "text",
+                content: content,
+                parentId: null,
+            });
+            newMessage
+                .save()
+                .populate("parentId")
+                .then((message) => {
+                    io.sockets.in(room).emit("new-message", { message });
+                });
+        }
+    });
+
+    // socket.on("disconnect", async (message) => {});
 });
