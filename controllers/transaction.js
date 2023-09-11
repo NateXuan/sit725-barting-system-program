@@ -97,11 +97,13 @@ exports.deleteTransaction = (req, res) => {
 };
 
 exports.finishTransaction = async (req, res) => {
+    const { _id } = req.session.user;
     const { transactionId } = req.body;
     const currentTransaction = await transactionModel.findById(transactionId);
+    const isUser1 = currentTransaction.user1._id == _id;
     if (currentTransaction.status == "active") {
-        currentTransaction.status = "pending";
-    } else if (currentTransaction.status == "pending") {
+        currentTransaction.status = isUser1 ? "pending_user1" : "pending_user2";
+    } else if (currentTransaction.status.startsWith("pending")) {
         currentTransaction.status = "finished";
     }
     currentTransaction
