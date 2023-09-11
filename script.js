@@ -204,8 +204,8 @@ $(document).ready(function () {
             "transactionId"
         );
         $.ajax({
-            url: `/transaction/confirm`,
-            method: "POST",
+            url: `/transaction/finish`,
+            type: "POST",
             data: { transactionId },
         });
         $("#confirmFinish").modal("hide");
@@ -216,7 +216,7 @@ $(document).ready(function () {
         );
         $.ajax({
             url: `/transaction/cancel`,
-            method: "POST",
+            type: "POST",
             data: { transactionId },
         });
         $("#confirmCancel").modal("hide");
