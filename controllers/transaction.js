@@ -91,6 +91,40 @@ exports.deleteTransaction = (req, res) => {
         });
 };
 
+exports.finishTransaction = (req, res) => {
+    const { transactionId } = req.body;
+    const currentTransaction = transactionModel.findById(transactionId, {
+        status: "interrupted",
+    });
+    if (currentTransaction.status == "active") {
+        currentTransaction.status = "pending";
+    } else if (currentTransaction.status == "pending") {
+        currentTransaction.status = "finished";
+    }
+    currentTransaction
+        .save()
+        .then(() => {
+            res.status(200).send("/transaction");
+        })
+        .catch((err) => {
+            res.status(400).send({ message: err });
+        });
+};
+
+exports.cancelTransaction = (req, res) => {
+    const { transactionId } = req.body;
+    transactionModel
+        .findByIdAndUpdate(transactionId, {
+            status: "interrupted",
+        })
+        .then(() => {
+            res.status(200).redirect("/transaction");
+        })
+        .catch((err) => {
+            res.status(400).send({ message: err });
+        });
+};
+
 function compareTransactionByStatus(transaction1, transaction2) {
     // TODO: create TransactionStatus schema in the future
     const statusEnum = {
