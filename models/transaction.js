@@ -31,7 +31,7 @@ const transactionSchema = new mongoose.Schema({
             "interrupted",
             "pending_user1",
             "pending_user2",
-            "finish",
+            "finished",
         ],
     },
 });
