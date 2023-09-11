@@ -26,7 +26,13 @@ const transactionSchema = new mongoose.Schema({
     status: {
         type: String,
         default: "active",
-        enum: ["active", "interrupted", "pending", "finish"],
+        enum: [
+            "active",
+            "interrupted",
+            "pending_user1",
+            "pending_user2",
+            "finish",
+        ],
     },
 });
 
