@@ -60,7 +60,7 @@ io.on("connection", (socket) => {
         socket.join(room);
         console.log(room);
     });
-    socket.on("message", async (data) => {
+    socket.on("new-message", async (data) => {
         const user = socket.request.session.user;
         const room = socket.request.session.selectedTransactionId;
         if (user && room && data.length) {
@@ -72,7 +72,7 @@ io.on("connection", (socket) => {
                 parentId: null,
             });
             newMessage.save().then((message) => {
-                socket.to(room).emit("message", { message });
+                socket.to(room).emit("new-message", { message });
             });
         }
     });
